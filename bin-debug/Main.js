@@ -11,8 +11,8 @@ var Main = (function (_super) {
     function Main() {
         var _this = _super.call(this) || this;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
+        _this.addEventListener(egret.Event.RESIZE, _this.onStageShowStatusChange, _this);
         return _this;
-        //this.addEventListener(egret.Event.RESIZE,this.onStageShowStatusChange,this);
     }
     /**
      * 横竖屏或尺寸发生变化
