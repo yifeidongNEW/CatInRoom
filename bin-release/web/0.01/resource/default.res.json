@@ -1,0 +1,1 @@
+{"groups":[{"keys":"bg_jpg,egret_icon_png,description_json","name":"preload"}],"resources":[{"url":"config/description_7278fcbf.json","type":"json","name":"description_json"},{"url":"packs0/preload-0sheet_415556e0.json","type":"sheet","name":"preload-0sheet","subkeys":"egret_icon_png,bg_jpg"}]}

@@ -11,8 +11,8 @@ var Main = (function (_super) {
     function Main() {
         var _this = _super.call(this) || this;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
-        _this.addEventListener(egret.Event.RESIZE, _this.onStageShowStatusChange, _this);
         return _this;
+        //this.addEventListener(egret.Event.RESIZE,this.onStageShowStatusChange,this);
     }
     /**
      * 横竖屏或尺寸发生变化
@@ -25,6 +25,7 @@ var Main = (function (_super) {
         //Config to load process interface
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
+        this.x = 0;
         //初始化Resource资源加载库
         //initiate Resource loading library
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
@@ -53,7 +54,6 @@ var Main = (function (_super) {
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
             RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            this.createGameScene();
         }
     };
     /**
