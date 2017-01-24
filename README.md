@@ -15,10 +15,12 @@ The first version of game.
 
 * [My Website](http://www.new8s.net)
 * [My Github](http://github.com/Darknessssssss)
-* [My Official Accounts in WeChat](http://github.com/Darknessssssss)
+* [My Official Accounts in WeChat](wechat_qrcode.jpg)
 
 also you can email me : yifeidong@outlook.com
 
 or follow my Official Accounts in WeChat "newsgames"
+
+Use app "Wechat" to follow : ![WeChat qrcode](wechat_qrcode.jpg)
 
 **Enjoy!**
