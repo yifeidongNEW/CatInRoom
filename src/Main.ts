@@ -9,7 +9,14 @@ class Main extends egret.DisplayObjectContainer {
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-        
+        //this.addEventListener(egret.Event.RESIZE,this.onStageShowStatusChange,this);
+    }
+
+    /**
+     * 横竖屏或尺寸发生变化
+     */
+    public onStageShowStatusChange(event:egret.Event){
+        console.log("变了")
     }
 
     private onAddToStage(event:egret.Event) {
