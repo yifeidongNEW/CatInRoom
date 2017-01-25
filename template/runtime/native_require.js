@@ -12,6 +12,7 @@ var game_file_list = [
 	"libs/modules/dragonBones/dragonBones.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
+	"bin-debug/SceneLoading.js",
 	"bin-debug/tools/dlog.js",
 	//----auto game_file_list end----
 ];

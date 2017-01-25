@@ -10,14 +10,6 @@ class Main extends egret.DisplayObjectContainer {
         super();
 
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-        //this.addEventListener(egret.Event.RESIZE,this.onStageShowStatusChange,this);
-    }
-
-    /**
-     * 横竖屏或尺寸发生变化
-     */
-    public onStageShowStatusChange(event:egret.Event){
-        console.log("变了")
     }
 
     private onAddToStage(event:egret.Event) {
@@ -25,8 +17,7 @@ class Main extends egret.DisplayObjectContainer {
         //Config to load process interface
         this.loadingView = new LoadingUI();
         this.stage.addChild(this.loadingView);
-        
-        this.x = 0;
+
         //初始化Resource资源加载库
         //initiate Resource loading library
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
@@ -57,7 +48,7 @@ class Main extends egret.DisplayObjectContainer {
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
             RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            //this.createGameScene();
+            this.createGameScene();
         }
     }
 
@@ -91,62 +82,34 @@ class Main extends egret.DisplayObjectContainer {
         }
     }
 
-    private textfield:egret.TextField;
+    private coverBg:egret.Bitmap;
+    private coverTitle:egret.Bitmap;
 
     /**
      * 创建游戏场景
      * Create a game scene
      */
     private createGameScene():void {
-        let sky:egret.Bitmap = this.createBitmapByName("bg_jpg");
-        this.addChild(sky);
+        //获取舞台宽高
         let stageW:number = this.stage.stageWidth;
         let stageH:number = this.stage.stageHeight;
-        sky.width = stageW;
-        sky.height = stageH;
 
-        let topMask = new egret.Shape();
-        topMask.graphics.beginFill(0x000000, 0.5);
-        topMask.graphics.drawRect(0, 0, stageW, 172);
-        topMask.graphics.endFill();
-        topMask.y = 33;
-        this.addChild(topMask);
+        //封面图
+        let coverBg:egret.Bitmap = this.createBitmapByName("Cover1_jpg");
+        coverBg.width = stageW;
+        coverBg.height = stageH;
+        this.coverBg = coverBg;
+        this.addChild(coverBg);
 
-        let icon:egret.Bitmap = this.createBitmapByName("egret_icon_png");
-        this.addChild(icon);
-        icon.x = 26;
-        icon.y = 33;
-
-        let line = new egret.Shape();
-        line.graphics.lineStyle(2,0xffffff);
-        line.graphics.moveTo(0,0);
-        line.graphics.lineTo(0,117);
-        line.graphics.endFill();
-        line.x = 172;
-        line.y = 61;
-        this.addChild(line);
-
-
-        let colorLabel = new egret.TextField();
-        colorLabel.textColor = 0xffffff;
-        colorLabel.width = stageW - 172;
-        colorLabel.textAlign = "center";
-        colorLabel.text = "Hello Egret";
-        colorLabel.size = 24;
-        colorLabel.x = 172;
-        colorLabel.y = 80;
-        this.addChild(colorLabel);
-
-        let textfield = new egret.TextField();
-        this.addChild(textfield);
-        textfield.alpha = 0;
-        textfield.width = stageW - 172;
-        textfield.textAlign = egret.HorizontalAlign.CENTER;
-        textfield.size = 24;
-        textfield.textColor = 0xffffff;
-        textfield.x = 172;
-        textfield.y = 135;
-        this.textfield = textfield;
+        //封面logo
+        let coverTitle:egret.Bitmap = this.createBitmapByName("Cover1_title_png");
+        let zoom = 0.8;
+        coverTitle.width = coverTitle.width * zoom;
+        coverTitle.height = coverTitle.height * zoom;
+        coverTitle.x = (stageW - coverTitle.width) / 2;
+        coverTitle.y = coverTitle.height / 3;
+        this.coverTitle = coverTitle;
+        this.addChild(coverTitle);
 
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
@@ -169,26 +132,11 @@ class Main extends egret.DisplayObjectContainer {
      * Description file loading is successful, start to play the animation
      */
     private startAnimation(result:Array<any>):void {
-        let self:any = this;
 
-        let parser = new egret.HtmlTextParser();
-        let textflowArr:Array<Array<egret.ITextElement>> = [];
-        for (let i:number = 0; i < result.length; i++) {
-            textflowArr.push(parser.parser(result[i]));
-        }
-
-        let textfield = self.textfield;
-        let count = -1;
+        let coverTitle = this.coverTitle;
         let change:Function = function () {
-            count++;
-            if (count >= textflowArr.length) {
-                count = 0;
-            }
-            let lineArr = textflowArr[count];
 
-            self.changeDescription(textfield, lineArr);
-
-            let tw = egret.Tween.get(textfield);
+            let tw = egret.Tween.get(coverTitle);
             tw.to({"alpha": 1}, 200);
             tw.wait(2000);
             tw.to({"alpha": 0}, 200);
@@ -196,14 +144,6 @@ class Main extends egret.DisplayObjectContainer {
         };
 
         change();
-    }
-
-    /**
-     * 切换描述内容
-     * Switch to described content
-     */
-    private changeDescription(textfield:egret.TextField, textFlow:Array<egret.ITextElement>):void {
-        textfield.textFlow = textFlow;
     }
 }
 
